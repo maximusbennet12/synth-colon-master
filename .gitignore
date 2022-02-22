@@ -1,0 +1,12 @@
+results/
+snapshots/
+*.pth
+*.pyc
+*.png
+*.blend1
+synth/data/
+eval/EvaluateResults/
+logs/
+data/
+
+!images/*

@@ -1,0 +1,43 @@
+version: '2.3'
+
+services:
+
+  main:
+    image: main
+    container_name: main
+    working_dir: /main
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ../:/main
+      - /your_dataset_folder/polyp-data/:/polyp-data:ro
+    runtime: nvidia
+    shm_size: '12gb'
+    command: tail /dev/null -f
+  
+  synth-polyp:
+    image: synth-polyp
+    container_name: synth-polyp
+    working_dir: /synth-polyp
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.synth
+    volumes:
+      - ../:/synth-polyp
+      - /your_dataset_folder/polyp-data/:/polyp-data:ro
+    command: tail /dev/null -f
+
+  cyclegan:
+    image: cyclegan
+    container_name: cyclegan
+    working_dir: /cyclegan
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.cyclegan
+    volumes:
+      - ../:/cyclegan
+      - /your_dataset_folder/polyp-data/:/polyp-data:ro
+    runtime: nvidia
+    shm_size: '12gb'
+    command: tail /dev/null -f
